@@ -1,0 +1,18 @@
+services:
+# app Nom du service. C'est votre application principale.
+  app:
+  # build :. Construis l'image Docker à partir du Dockerfile qui se trouve dans le dossier courant (.)
+    build: .
+    container_name: backend-app
+    ports:
+    #  "PORT_HOTE:PORT_CONTENEUR"
+      - "5000:5000" 
+    environment:
+      - MONGODB_URI=mongodb+srv://hama_db:hamadb123@cluster0.wauczhc.mongodb.net/gestion_conge?retryWrites=true&w=majority
+      - PORT=5000
+    volumes:
+    # Copie tous les fichiers du dossier courant (.) vers /app dans le conteneur
+      - .:/app
+    # Exclut le dossier node_modules pour éviter les conflits entre l'hôte et le conteneur
+      - /app/node_modules
+    command: npm start
